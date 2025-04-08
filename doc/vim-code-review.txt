@@ -1,0 +1,93 @@
+" vim-code-checker.txt
+
+" ============================================================================
+" File:        vim-code-checker.txt
+" Description: Documentation for vim-code-checker plugin
+" Maintainer:  whatever555
+" License:     This file is placed in the public domain.
+" ============================================================================
+
+*vim-code-checker.txt*  For Vim version 9.0.  Last change: 2024 May 16
+
+
+*INSTALLATION*
+To install the plugin, use your favorite plugin manager (e.g., vim-plug, Vundle, etc.).
+
+Example using vim-plug:
+  >
+  vim Plug 'whatever555/vim-code-checker'
+  <
+
+:h emsr-install-plugin
+
+*CONFIGURATION*
+1.  Install the `emurph-code-checker` package globally using npm:
+    >
+    npm install -g emurph-code-checker
+    <
+
+    You must have node/npm installed.
+
+2.  Add environment variables (Required for open-router)
+    Create a `.env` file in your project directory. Add the following lines to the `.env` file:
+        >
+        "An api key is required to use open-router
+        OPEN_ROUTER_API_KEY=<your_api_key>
+        OPEN_ROUTER_MODEL=<your_openrouter_model>
+
+        "Set your ollama model if you are using ollama
+        OLLAMA_MODEL=<your_ollama_model>
+        <
+   Tip: Add the `.env` file to your `.gitignore` file to avoid committing it to version control.
+*OVERVIEW*
+*vim-code-checker*
+
+This is a Vim plugin that provides functionality for running code checks using external commands.
+It can be used to check, explain, or ask questions about code.
+
+*FEATURES*
+
+- Run code checks with different modes: 'check', 'explain', and 'question'.
+- Can be used on visual selection, or complete file.
+- Displays results in a quickfix list for easy viewing.
+
+*USAGE*
+
+1. Install plugin for vim.
+   - Use your favorite plugin manager (e.g., vim-plug, Vundle, etc.) to install the plugin.
+   - Example using vim-plug: `vim Plug 'whatever555/vim-code-checker' `
+   - :h plugin-install
+
+2. Commands to run checks:
+
+    - `:CodeCheck` runs code check without any additional information.
+    - `:CodeCheckExplain` requests detailed explanation of the issues found.
+    - `:CodeCheckAskQuestion <args>` asks a question about specific issues, where `<args>` is your query.
+
+3. Use visual mode to select text and apply commands (e.g., `gv`, then `:CodeCheck`), or just run command without any code selected to query entire file.
+
+*CONFIGURATION*
+
+You can configure the plugin by adding the following lines to your `.vimrc` or `init.vim` file:
+
+>
+### To use ollama
+let g:code_checker_provider = 'ollama'
+### To use open-router (Default)
+let g:code_checker_provider = 'open-router'
+<
+
+*EXMAPLE*
+If you have selected some code in Vim:
+`:CodeCheckAskQuestion What does this error mean?`
+This will ask the tool to explain what the highlighted error means
+
+*ISSUES*
+*TODO*
+- The plugin currently does not handle errors from the code checker gracefully. If the command fails, it may not provide useful feedback to the user.
+- The plugin is not optimized for token usage. This can cause a cost issue for remote connections, and can impact performace on local models.
+- The plugin does not yet handle large files well. If the file is too large, it may cause the code checker to fail or take a long time to run.
+- The plugin is still in beta mode, so make sure to check for updates as often as possible (botht the npm package and the vim plugin)
+- The plugin has a strict dependency on the npm code checker. If the npm package is updated, the plugin may not work until it is updated as well.
+- The plugin is not yet optimized. There are many areas where performance can be improved.
+
